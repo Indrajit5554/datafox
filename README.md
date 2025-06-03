@@ -1,5 +1,5 @@
 # datafox
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <title>Universal Video Downloader | DATAFOX</title>
     <meta name="description" content="Download videos from multiple platforms with local processing for maximum privacy and performance">
     <meta name="keywords" content="video downloader, youtube downloader, facebook downloader, instagram downloader, tiktok downloader, universal downloader">
-    <meta name="author" content="DataFox">
+    <meta name="author" content="BLACKI">
     <meta name="theme-color" content="#2563eb">
     
     <!-- Open Graph / Social Media Meta Tags -->
@@ -842,6 +842,39 @@
             }
         }
 
+        /* Mobile-specific styles */
+        @media (max-width: 480px) {
+            .download-card {
+                padding: var(--space-md);
+            }
+            
+            .btn {
+                padding: var(--space-md);
+                font-size: 0.9375rem;
+            }
+            
+            /* Ensure download links are tappable on mobile */
+            a[download] {
+                min-width: 44px;
+                min-height: 44px;
+            }
+            
+            /* Mobile queue adjustments */
+            .processing-queue {
+                width: 100%;
+                max-height: 70vh;
+                bottom: 0;
+                top: auto;
+                right: 0;
+                border-radius: var(--radius-md) var(--radius-md) 0 0;
+            }
+            
+            .queue-badge {
+                bottom: var(--space-md);
+                top: auto;
+            }
+        }
+
         /* Accessibility focus styles */
         button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible {
             outline: 2px solid var(--primary);
@@ -1031,7 +1064,7 @@
                     </a>
                     <a href="#" class="platform" data-platform="instagram">
                         <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.272-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
                         </svg>
                         <span class="platform-name">Instagram</span>
                     </a>
@@ -1209,7 +1242,7 @@
                 });
             }
 
-            handleDownloadClick(e) {
+            async handleDownloadClick(e) {
                 const url = this.videoUrlInput.value.trim();
                 const platform = this.platformSelect.value;
 
@@ -1219,20 +1252,182 @@
                     return;
                 }
 
-                // Validate URL format
                 if (!this.isValidUrl(url)) {
                     this.showToast('Please enter a valid URL', 'error');
                     return;
                 }
 
-                // Show loading state
                 this.setButtonLoading(true);
 
-                // Simulate processing delay
-                setTimeout(() => {
-                    this.addToQueue(url, platform);
+                try {
+                    // First check if the URL is from a supported platform
+                    if (!this.isSupportedPlatform(url, platform)) {
+                        this.showToast('This platform is not supported or URL is invalid', 'error');
+                        return;
+                    }
+
+                    // Get video info (simulated in this demo)
+                    const videoInfo = await this.getVideoInfo(url, platform);
+                    
+                    // On mobile, we might want to handle the download immediately
+                    if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                        this.showToast('Preparing download for mobile...', 'success');
+                        await this.downloadItem({
+                            id: 'mobile-' + Date.now(),
+                            url,
+                            platform,
+                            fileName: `${this.extractFileNameFromUrl(url, platform)}.${platform === 'soundcloud' ? 'mp3' : 'mp4'}`,
+                            status: 'completed'
+                        });
+                    } else {
+                        // On desktop, add to queue
+                        this.addToQueue(url, platform, videoInfo);
+                    }
+                } catch (error) {
+                    this.showToast(`Error: ${error.message}`, 'error');
+                    console.error('Download error:', error);
+                } finally {
                     this.setButtonLoading(false);
-                }, 500);
+                }
+            }
+
+            async getVideoInfo(url, platform) {
+                // In a real implementation, this would call your backend API
+                // For demo purposes, we'll simulate this with a timeout
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        const fileName = this.extractFileNameFromUrl(url, platform);
+                        resolve({
+                            id: Date.now().toString(),
+                            url,
+                            platform,
+                            fileName: `${fileName}.${platform === 'soundcloud' ? 'mp3' : 'mp4'}`,
+                            duration: Math.floor(Math.random() * 600) + 60, // Random duration 1-10 mins
+                            thumbnail: this.getPlatformThumbnail(platform),
+                            qualityOptions: ['1080p', '720p', '480p'] // Simulated quality options
+                        });
+                    }, 1000);
+                });
+            }
+
+            getPlatformThumbnail(platform) {
+                // Return platform-specific thumbnail placeholder
+                const thumbnails = {
+                    youtube: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
+                    vimeo: 'https://i.vimeocdn.com/video/12345_1280x720.jpg',
+                    twitter: 'https://pbs.twimg.com/media/ABC123.jpg',
+                    instagram: 'https://scontent.cdninstagram.com/v/t51.2885-15/12345_n.jpg',
+                    default: 'https://via.placeholder.com/1280x720.png?text=Video+Thumbnail'
+                };
+                return thumbnails[platform] || thumbnails.default;
+            }
+
+            isSupportedPlatform(url, platform) {
+                // Basic URL validation for supported platforms
+                const platformPatterns = {
+                    youtube: /(youtube\.com|youtu\.be)/,
+                    vimeo: /vimeo\.com/,
+                    twitter: /twitter\.com|t\.co|x\.com/,
+                    instagram: /instagram\.com/,
+                    tiktok: /tiktok\.com/,
+                    facebook: /facebook\.com/,
+                    soundcloud: /soundcloud\.com/,
+                    dailymotion: /dailymotion\.com/,
+                    twitch: /twitch\.tv/,
+                    reddit: /reddit\.com/,
+                    vk: /vk\.com/,
+                    tumblr: /tumblr\.com/,
+                    pinterest: /pinterest\.com/,
+                    rutube: /rutube\.ru/,
+                    xiaohongshu: /xiaohongshu\.com/,
+                    streamable: /streamable\.com/,
+                    loom: /loom\.com/
+                };
+
+                if (platform === 'auto') {
+                    return Object.values(platformPatterns).some(pattern => pattern.test(url));
+                }
+                
+                return platformPatterns[platform]?.test(url) || false;
+            }
+
+            addToQueue(url, platform, videoInfo) {
+                const queueItem = {
+                    id: videoInfo.id,
+                    url,
+                    platform,
+                    fileName: videoInfo.fileName,
+                    progress: 0,
+                    status: 'processing',
+                    info: videoInfo
+                };
+
+                this.queue.push(queueItem);
+                this.updateQueueBadge();
+                this.renderQueueItem(queueItem);
+                this.processQueueItem(queueItem);
+                this.showToast(`Added to queue: ${videoInfo.fileName}`, 'success');
+            }
+
+            async processQueueItem(item) {
+                // Simulate processing stages
+                const stages = [
+                    { name: 'Fetching video data', duration: 1000 },
+                    { name: 'Decoding stream', duration: 1500 },
+                    { name: 'Processing metadata', duration: 800 },
+                    { name: 'Finalizing download', duration: 1200 }
+                ];
+
+                for (const stage of stages) {
+                    if (!this.queue.find(qi => qi.id === item.id)) break;
+                    
+                    this.updateQueueItemStatus(item.id, stage.name);
+                    
+                    // Simulate progress during this stage
+                    const startProgress = item.progress;
+                    const endProgress = startProgress + (100 / stages.length);
+                    
+                    await this.animateProgress(item.id, startProgress, endProgress, stage.duration);
+                }
+
+                // Mark as completed if still in queue
+                if (this.queue.find(qi => qi.id === item.id)) {
+                    const queueItem = this.queue.find(qi => qi.id === item.id);
+                    queueItem.status = 'completed';
+                    queueItem.progress = 100;
+                    this.updateQueueItem(item.id);
+                    this.showToast(`Processing complete: ${queueItem.fileName}`, 'success');
+                }
+            }
+
+            async animateProgress(itemId, start, end, duration) {
+                const startTime = performance.now();
+                const updateProgress = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(start + (end - start) * (elapsed / duration), end);
+                    
+                    const queueItem = this.queue.find(qi => qi.id === itemId);
+                    if (queueItem) {
+                        queueItem.progress = progress;
+                        this.updateQueueItem(itemId);
+                    }
+                    
+                    if (elapsed < duration) {
+                        requestAnimationFrame(updateProgress);
+                    }
+                };
+                requestAnimationFrame(updateProgress);
+                
+                // Return a promise that resolves after the duration
+                return new Promise(resolve => setTimeout(resolve, duration));
+            }
+
+            updateQueueItemStatus(itemId, statusText) {
+                const queueItem = this.queue.find(item => item.id === itemId);
+                if (queueItem) {
+                    queueItem.statusText = statusText;
+                    this.updateQueueItem(itemId);
+                }
             }
 
             isValidUrl(url) {
@@ -1252,28 +1447,6 @@
                     this.downloadBtn.classList.remove('btn-loading');
                     this.downloadBtn.disabled = false;
                 }
-            }
-
-            addToQueue(url, platform) {
-                const id = Date.now().toString();
-                const fileName = this.extractFileNameFromUrl(url, platform);
-                const fileExt = platform === 'soundcloud' ? 'mp3' : 'mp4';
-                const fullFileName = `${fileName}.${fileExt}`;
-
-                const queueItem = {
-                    id,
-                    url,
-                    platform,
-                    fileName: fullFileName,
-                    progress: 0,
-                    status: 'processing'
-                };
-
-                this.queue.push(queueItem);
-                this.updateQueueBadge();
-                this.renderQueueItem(queueItem);
-                this.processQueueItem(queueItem);
-                this.showToast(`Added to queue: ${fullFileName}`, 'success');
             }
 
             extractFileNameFromUrl(url, platform) {
@@ -1308,7 +1481,7 @@
                     <div class="queue-item-details">
                         <div class="queue-item-name">${item.fileName}</div>
                         <div class="queue-item-status">
-                            <span>${this.getStatusText(item.status)}</span>
+                            <span>${item.statusText || this.getStatusText(item.status)}</span>
                             <span>${Math.round(item.progress)}%</span>
                         </div>
                         <div class="queue-item-progress">
@@ -1353,28 +1526,6 @@
                 return statusMap[status] || status;
             }
 
-            processQueueItem(item) {
-                // Simulate processing with random intervals
-                const interval = setInterval(() => {
-                    const queueItem = this.queue.find(qi => qi.id === item.id);
-                    if (!queueItem) {
-                        clearInterval(interval);
-                        return;
-                    }
-
-                    queueItem.progress += Math.random() * 10;
-                    if (queueItem.progress >= 100) {
-                        queueItem.progress = 100;
-                        queueItem.status = 'completed';
-                        clearInterval(interval);
-                        this.updateQueueItem(item.id);
-                        this.showToast(`Processing complete: ${item.fileName}`, 'success');
-                    }
-
-                    this.updateQueueItem(item.id);
-                }, 300 + Math.random() * 500);
-            }
-
             updateQueueItem(id) {
                 const queueItem = this.queue.find(item => item.id === id);
                 if (!queueItem) return;
@@ -1388,7 +1539,7 @@
 
                 // Update status text
                 const statusElement = itemElement.querySelector('.queue-item-status span:first-child');
-                statusElement.textContent = this.getStatusText(queueItem.status);
+                statusElement.textContent = queueItem.statusText || this.getStatusText(queueItem.status);
 
                 // Update progress percentage
                 const progressElement = itemElement.querySelector('.queue-item-status span:last-child');
@@ -1399,14 +1550,66 @@
                 downloadBtn.disabled = queueItem.status !== 'completed';
             }
 
-            downloadItem(item) {
-                // In a real app, this would trigger the actual download
-                this.showToast(`Downloading ${item.fileName}`, 'success');
-                
-                // Remove from queue after download
-                setTimeout(() => {
+            async downloadItem(item) {
+                try {
+                    this.showToast(`Preparing download: ${item.fileName}`, 'success');
+                    
+                    // Create a dummy video file (in a real app, this would be the actual video)
+                    const blob = new Blob([`This is a simulation of ${item.fileName}\n\n` + 
+                                         `Original URL: ${item.url}\n` +
+                                         `Platform: ${item.platform}\n` +
+                                         `Filename: ${item.fileName}`], { type: 'text/plain' });
+                    
+                    // Different approach for mobile vs desktop
+                    if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                        // Mobile devices - use a different approach
+                        const reader = new FileReader();
+                        reader.onload = function() {
+                            const base64data = reader.result;
+                            const link = document.createElement('a');
+                            link.href = base64data;
+                            link.download = item.fileName;
+                            document.body.appendChild(link);
+                            
+                            // For iOS, we need to trigger the click in a different way
+                            if (typeof link.click === 'function') {
+                                link.click();
+                            } else {
+                                const event = new MouseEvent('click', {
+                                    view: window,
+                                    bubbles: true,
+                                    cancelable: true
+                                });
+                                link.dispatchEvent(event);
+                            }
+                            
+                            setTimeout(() => {
+                                document.body.removeChild(link);
+                            }, 100);
+                        };
+                        reader.readAsDataURL(blob);
+                    } else {
+                        // Desktop browsers - standard approach
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = item.fileName;
+                        document.body.appendChild(a);
+                        a.click();
+                        
+                        setTimeout(() => {
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                        }, 100);
+                    }
+                    
+                    // Remove from queue after download
                     this.removeFromQueue(item.id);
-                }, 1000);
+                    
+                } catch (error) {
+                    this.showToast(`Download failed: ${error.message}`, 'error');
+                    console.error('Download error:', error);
+                }
             }
 
             removeFromQueue(id) {

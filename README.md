@@ -1,10 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universal Video Downloader | DATAFOX</title>
     <meta name="description" content="Download videos from multiple platforms with local processing for maximum privacy and performance">
     <meta name="keywords" content="video downloader, youtube downloader, facebook downloader, instagram downloader, tiktok downloader, universal downloader">
-    <meta name="author" content="BLACKI">
+    <meta name="author" content="DataFox">
     <meta name="theme-color" content="#2563eb">
     
     <!-- Open Graph / Social Media Meta Tags -->
@@ -646,18 +648,51 @@
         }
 
         /* Disclaimer Styles */
-        .disclaimer {
-            margin-top: var(--space-2xl);
+        .disclaimer-container {
+            margin: var(--space-2xl) 0;
             padding: var(--space-md);
             background-color: rgba(234, 179, 8, 0.1);
             border-left: 4px solid var(--warning);
-            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            border-radius: var(--radius-md);
+        }
+
+        .disclaimer-content {
+            display: flex;
+            gap: var(--space-md);
+            align-items: flex-start;
+        }
+
+        .disclaimer-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            color: var(--warning);
+            margin-top: 2px;
+        }
+
+        .disclaimer-title {
+            font-size: 1rem;
+            color: var(--warning);
+            margin-bottom: var(--space-sm);
+        }
+
+        .disclaimer-text {
             font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .disclaimer-list {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            padding-left: var(--space-md);
+            margin: var(--space-sm) 0;
             line-height: 1.6;
         }
 
-        .disclaimer strong {
-            color: var(--warning);
+        .disclaimer-list li {
+            margin-bottom: var(--space-xs);
         }
 
         /* Footer Styles */
@@ -836,6 +871,10 @@
             .processing-queue {
                 width: calc(100% - var(--space-md) * 2);
                 max-height: 60vh;
+            }
+            
+            .disclaimer-container {
+                margin: var(--space-xl) 0;
             }
         }
 
@@ -1146,8 +1185,30 @@
                 </div>
             </section>
 
-            <div class="disclaimer">
-                <strong>Disclaimer:</strong> DataFox is a tool for downloading videos you have rights to or that are in the public domain. Downloading copyrighted content without permission may violate terms of service and copyright laws. Please respect content creators' rights and only download videos you're authorized to access.
+            <div class="disclaimer-container">
+                <div class="disclaimer-content">
+                    <svg class="disclaimer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <div>
+                        <h3 class="disclaimer-title">Legal Notice</h3>
+                        <p class="disclaimer-text">
+                            <strong>DataFox</strong> is designed for downloading videos you have explicit rights to or that are in the public domain. 
+                            Unauthorized downloading of copyrighted content may violate:
+                        </p>
+                        <ul class="disclaimer-list">
+                            <li>Digital Millennium Copyright Act (DMCA)</li>
+                            <li>Platform Terms of Service</li>
+                            <li>International copyright laws</li>
+                        </ul>
+                        <p class="disclaimer-text">
+                            By using this service, you agree to only download content you are legally authorized to access.
+                            We do not condone copyright infringement and will cooperate with legal requests.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
